@@ -19,4 +19,10 @@ public class CustomExceptionHandler {
     public ErrorResponse handlerNotFoundException(DuplicateRecordException ex, WebRequest req){
         return new ErrorResponse(HttpStatus.UNAUTHORIZED,ex.getMessage());
     }
+
+    @ExceptionHandler(InternalServerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse InternalServerException(InternalServerException ex, WebRequest req){
+        return new ErrorResponse(HttpStatus.UNAUTHORIZED,ex.getMessage());
+    }
 }

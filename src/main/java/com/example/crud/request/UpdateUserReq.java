@@ -26,13 +26,13 @@ public class UpdateUserReq {
 
     @NotNull(message = "Password is required")
     @NotEmpty(message = "Password is required")
-    @Size(min = 4, max = 20, message = "Pasword must be between 4 and 20 characters")
+    @Size(min = 4, max = 20, message = "Password must be between 4 and 20 characters")
     private String password;
 
     @Pattern(regexp="(09|01[2|6|8|9])+([0-9]{8})\\b", message = "Please provide a valid phone number")
     private String phone;
 
-    @Valid
-    @URL(regexp="(https?:\\/\\/.*\\.(?:png|jpg))", message="Avatar must be an url image")
+//    @Valid
+//    @URL(regexp="(https?:\\/\\/.*\\.(?:png|jpg))", message="Avatar must be an url image")
     private String avatar;
 }

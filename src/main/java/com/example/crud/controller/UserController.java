@@ -1,15 +1,15 @@
 package com.example.crud.controller;
 
 import com.example.crud.Service.UserService;
-import com.example.crud.entity.User;
 import com.example.crud.model.dto.UserDto;
-import com.example.crud.model.mapper.UserMapper;
 import com.example.crud.request.CreateUserReq;
 import com.example.crud.request.UpdateUserReq;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +24,7 @@ public class UserController {
     @GetMapping("/search")
     public ResponseEntity<?> searchUser(@RequestParam(name = "keyword", required = false,defaultValue = "") String name){
         List<UserDto> user = userService.searchUser(name);
+
         return ResponseEntity.ok(user);
     }
     @GetMapping("")
@@ -42,7 +43,7 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, @PathVariable int id){
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, Errors errors, @PathVariable int id){
         UserDto result = userService.updateUser(req, id);
         return ResponseEntity.ok(result);
     }
