@@ -154,6 +154,21 @@ public class UserServiceIml implements UserService {
 //        throw new NotFoundException("No user found");
 
     }
+
+    @Override
+    public boolean check(String email, String password) {
+
+//        List<User> users = userRepository.findAll();
+//        for (User user : users){
+//            if (user.getEmail().equals(email)&&user.getPassword().equals(password)){
+//                return true;
+//            }
+//        }
+        User user = userRepository.findByEmail(email);
+        return user!=null && user.getPassword().equals(password);
+
+    }
+
 }
 
 

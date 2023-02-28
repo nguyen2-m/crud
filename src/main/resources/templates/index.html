@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Hello thymeleaf</title>
@@ -95,10 +95,11 @@
                             tro giup
                         </a>
                     </li>
-                    <li onclick="dangkyfnc()" class="header__navbar-iteam header__navbar-iteam--strong header__navbar-iteam--saparate">dang ky</li>
-                    <li onclick="dangnhapfnc()" class="header__navbar-iteam header__navbar-iteam--strong">dang nhap</li>
-
-                    <!-- <li class="header__navbar-iteam header__navbar-user">
+                    <div class="dangkydangnhap"  th:classappend="${isLoginFailure1} ? auth-hidden : ''">
+                        <li onclick="dangKyFnc()" class="header__navbar-iteam header__navbar-iteam--strong header__navbar-iteam--saparate">dang ky</li>
+                        <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">dang nhap</li>
+                    </div>
+                    <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure1} ? '' : auth-hidden">
                         <img src="./assets/img/qr_code.png" alt="" class="header__navbar-user-img">
                         <span class="header__navbar-user-name">nguyen minh hoa</span>
                         <ul class="header__navbar-user-menu">
@@ -112,10 +113,10 @@
                                 <a href="">don mua</a>
                             </li>
                             <li class="header__navbar-user-item ngancach">
-                                <a href=""> dang xuat</a>
+                                <a href="/user/main"> dang xuat</a>
                             </li>
                         </ul>
-                    </li> -->
+                    </li>
                 </ul>
             </nav>
 
@@ -780,14 +781,14 @@
     </footer>
 </div>
 
-<div id="model-auth" class="modal auth-hidden">
-    <div onclick="cancel()" class="modal__overlay"></div>
+<div id="model-auth" class="modal" th:classappend="${isLoginFailure} ? '' :  auth-hidden">
+    <div th:onclick="cancel()" class="modal__overlay"></div>
     <div class="modal__boby">
 
 
         <!-- authen -->
         <div id="model-register" class="auth-form auth-hidden">
-            <div class="auth-form__container">
+            <form class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">dang ky</h3>
                     <span class="auth-form__switch-home-filter__btn btn">dang nhap</span>
@@ -813,10 +814,10 @@
                 </div>
 
                 <div class="auth-from__controls">
-                    <button class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">TRO LAI</button>
+                    <button th:onsubmit="" class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">TRO LAI</button>
                     <button class="home-filter__btn btn home-filter__btn btn--primary">DANG KY</button>
                 </div>
-            </div>
+            </form>
 
 
 
@@ -833,15 +834,15 @@
 
         </div>
 
-        <div id="model-login" class="auth-form auth-hidden">
-            <form action="action" id="dangnhapform" class="auth-form__container">
+        <div id="model-login" class="auth-form"  th:classappend="${isLoginFailure}? '' :  auth-hidden">
+            <form th:action="@{login}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">dang nhap</h3>
                     <span class="auth-form__switch-home-filter__btn btn">dang ky</span>
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" name="name" placeholder="nhap email cua ban">
+                        <input type="text" class="auth-form__input" name="email" placeholder="nhap email cua ban">
                     </div>
                     <div class="auth-form__group">
                         <input type="password" class="auth-form__input" name="password" placeholder="mk cua ban">
@@ -858,7 +859,7 @@
 
                 <div class="auth-from__controls">
                     <button class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">TRO LAI</button>
-                    <button type="submit" form="dangnhapform" class="home-filter__btn btn home-filter__btn btn--primary">DANG NHAP</button>
+                    <button type="submit" class="home-filter__btn btn home-filter__btn btn--primary">DANG NHAP</button>
                 </div>
             </form>
 
@@ -880,5 +881,7 @@
     </div>
 
 </div>
+
+<script src="../js/main.js"></script>
 </body>
 </html>

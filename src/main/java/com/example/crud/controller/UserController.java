@@ -1,8 +1,10 @@
 package com.example.crud.controller;
 
 import com.example.crud.Service.UserService;
+import com.example.crud.entity.User;
 import com.example.crud.model.dto.UserDto;
 import com.example.crud.request.CreateUserReq;
+import com.example.crud.request.LoginReq;
 import com.example.crud.request.UpdateUserReq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -28,6 +30,7 @@ public class UserController {
     private UserService userService;
 
 
+
     @GetMapping("/search")
     public ResponseEntity<?> searchUser(@RequestParam(name = "keyword", required = false, defaultValue = "") String name) {
         List<UserDto> user = userService.searchUser(name);
@@ -38,6 +41,7 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<?> getListUser() {
         List<UserDto> user = userService.getListUser();
+
         return ResponseEntity.ok(user);
     }
 
@@ -98,10 +102,30 @@ public class UserController {
     public String index(){
         return "index";
     }
+
+    @GetMapping("/main/login")
+    public String mainLogin(@ModelAttribute LoginReq user, boolean isLoginSuccess, Model model){
+        model.addAttribute("isLoginFailure", !isLoginSuccess);
+        model.addAttribute("isLoginFailure1", isLoginSuccess);
+        if(isLoginSuccess){
+
+        }
+        return "index";
+    }
     @GetMapping("/date")
     public String date(Model model){
         model.addAttribute("date", new Date());
         return "date";
+    }
+
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute LoginReq user, Model model) {
+        String email = user.getEmail();
+        String password = user.getPassword();
+        boolean result = userService.check(email,password);
+
+        return mainLogin(user, result, model);
     }
 
 }
