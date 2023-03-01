@@ -17,7 +17,7 @@
             <nav class="header__navbar">
                 <ul class="header__navbar-list">
                     <li class="header__navbar-iteam header__navbar-iteam--has-qr header__navbar-iteam--saparate">
-                        vao cua hang tren ung dung
+                        vào cửa hàng trên ứng dụng
                         <div class="header__qr">
                             <img src="/img/qr_code.png" alt="QR code" class="header__qr-img">
                             <div class="header__qr-apps">
@@ -791,20 +791,20 @@
 
         <!-- authen -->
         <div id="model-register" class="auth-form auth_none">
-            <form class="auth-form__container">
+            <form th:action="@{register}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">dang ky</h3>
                     <span class="auth-form__switch-home-filter__btn btn">dang nhap</span>
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" placeholder="nhap email cua ban">
+                        <input type="text" class="auth-form__input" name="email" placeholder="nhap email cua ban">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" placeholder="mk cua ban">
+                        <input type="password" class="auth-form__input" name="password" placeholder="mk cua ban">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" placeholder="nhap lai mk">
+                        <input type="password" class="auth-form__input" name="password1" placeholder="nhap lai mk">
                     </div>
                 </div>
 

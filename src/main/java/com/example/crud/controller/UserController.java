@@ -8,18 +8,16 @@ import com.example.crud.request.LoginReq;
 import com.example.crud.request.UpdateUserReq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -52,10 +50,13 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("")
-    public ResponseEntity<?> creatUser(@RequestBody CreateUserReq req) {
+    @PostMapping("/register")
+    public String creatUser(@ModelAttribute CreateUserReq req, Model model) {
         UserDto result = userService.createUser(req);
-        return ResponseEntity.ok(result);
+        LoginReq loginReq= new LoginReq();
+        loginReq.setEmail(req.getEmail());
+        loginReq.setPassword(req.getPassword());
+        return login(loginReq,model);
     }
 
     @PutMapping("/{id}")
@@ -128,6 +129,7 @@ public class UserController {
         Optional<User> result = userService.check(email,password);
         if(result==null){
             System.out.println(email);
+            System.out.println(password);
             return mainLogin(user, model);
 
         }else{

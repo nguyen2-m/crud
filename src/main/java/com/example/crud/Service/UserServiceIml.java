@@ -79,8 +79,8 @@ public class UserServiceIml implements UserService {
         user1.setEmail(req.getEmail());
         user1.setName(req.getName());
         user1.setPhone(req.getPhone());
+        System.out.println(req.getPassword()+"   day ne");
         user1.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
-
         System.out.println(user1.getPassword());
         userRepository.save(user1);
         return UserMapper.toUserDto(user1);
@@ -166,7 +166,11 @@ public class UserServiceIml implements UserService {
 //            }
 //        }
         User user = userRepository.findByEmail(email);
-        return user!=null && user.getPassword().equals(password) ? Optional.of(user) : null;
+        System.out.println(user.getPassword());
+        System.out.println(password);
+        System.out.println(BCrypt.hashpw(password.toString(), BCrypt.gensalt(12)));
+        System.out.println(BCrypt.checkpw(password.toString(), user.getPassword()));
+        return user!=null && BCrypt.checkpw(password, user.getPassword()) ? Optional.of(user) : null;
 
     }
 
