@@ -6,7 +6,7 @@
     <link th:href="@{/css/main.css}" type="text/css" rel="stylesheet" />
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/font/fontawesome-free-6.2.1/css/all.min.css}">
-    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap}" rel="stylesheet">
+<!--    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap}" rel="stylesheet">-->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css}">
 </head>
 <body>
@@ -98,13 +98,13 @@
                             tro giup
                         </a>
                     </li>
-                    <div class="dangkydangnhap"  th:classappend="${isLoginFailure1} ? auth-hidden : ''">
+                    <div th:classappend="${isLoginFailure} ? auth_none : ''">
                         <li onclick="dangKyFnc()" class="header__navbar-iteam header__navbar-iteam--strong header__navbar-iteam--saparate">dang ky</li>
                         <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">dang nhap</li>
                     </div>
-                    <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure1} ? '' : auth-hidden">
+                    <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure} ? '' : auth_none">
                         <img src="/img/qr_code.png" alt="" class="header__navbar-user-img">
-                        <span class="header__navbar-user-name">nguyen minh hoa</span>
+                        <span class="header__navbar-user-name" th:text="${name}"></span>
                         <ul class="header__navbar-user-menu">
                             <li class="header__navbar-user-item">
                                 <a href="">tai khoan cua toi</a>
@@ -784,13 +784,13 @@
     </footer>
 </div>
 
-<div id="model-auth" class="modal" th:classappend="${isLoginFailure} ? '' :  auth-hidden">
+<div id="model-auth" class="modal" th:classappend="${isLoginFailure1} ? '' : auth_none">
     <div th:onclick="cancel()" class="modal__overlay"></div>
     <div class="modal__boby">
 
 
         <!-- authen -->
-        <div id="model-register" class="auth-form auth-hidden">
+        <div id="model-register" class="auth-form auth_none">
             <form class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">dang ky</h3>
@@ -837,7 +837,7 @@
 
         </div>
 
-        <div id="model-login" class="auth-form"  th:classappend="${isLoginFailure}? '' :  auth-hidden">
+        <div id="model-login" class="auth-form"  th:classappend="${isLoginFailure1} ? '' : auth_none">
             <form th:action="@{login}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">dang nhap</h3>

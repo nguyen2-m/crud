@@ -1,4 +1,6 @@
 package com.example.crud.controller;
+
+
 import com.example.crud.Service.UserService;
 import com.example.crud.model.dto.UserDto;
 import com.example.crud.request.CreateUserReq;
@@ -22,14 +24,6 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/home")
-public class dataController {
-//    @GetMapping("/main")
-//    public String index(){
-//        return "index";
-//    }
-//    @GetMapping("/date")
-//    public String date(Model model){
-//        model.addAttribute("date", new Date());
-//        return "date";
-//    }
+public class userInformation {
+//    @GetMapping
 }

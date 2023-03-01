@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -104,13 +105,11 @@ public class UserController {
     }
 
     @GetMapping("/main/login")
-    public String mainLogin(@ModelAttribute LoginReq user, boolean isLoginSuccess, Model model){
-        model.addAttribute("isLoginFailure", !isLoginSuccess);
-        model.addAttribute("isLoginFailure1", isLoginSuccess);
-        if(isLoginSuccess){
-
-        }
+    public String mainLogin(@ModelAttribute LoginReq loginReq, Model model){
+        model.addAttribute("isLoginFailure", false);
+        model.addAttribute("isLoginFailure1", true);
         return "index";
+
     }
     @GetMapping("/date")
     public String date(Model model){
@@ -123,9 +122,20 @@ public class UserController {
     public String login(@ModelAttribute LoginReq user, Model model) {
         String email = user.getEmail();
         String password = user.getPassword();
-        boolean result = userService.check(email,password);
+//        System.out.println(email);
+//        System.out.println(password);
 
-        return mainLogin(user, result, model);
+        Optional<User> result = userService.check(email,password);
+        if(result==null){
+            System.out.println(email);
+            return mainLogin(user, model);
+
+        }else{
+            model.addAttribute("isLoginFailure", true);
+            model.addAttribute("isLoginFailure1", false);
+            model.addAttribute("name",result.get().getName());
+            return "index";
+        }
     }
 
 }

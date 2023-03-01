@@ -8,6 +8,7 @@ import com.example.crud.model.mapper.UserMapper;
 import com.example.crud.repository.UserRepository;
 import com.example.crud.request.CreateUserReq;
 import com.example.crud.request.UpdateUserReq;
+import jakarta.annotation.Nullable;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -156,7 +157,7 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    public boolean check(String email, String password) {
+    public Optional<User> check(String email, String password) {
 
 //        List<User> users = userRepository.findAll();
 //        for (User user : users){
@@ -165,7 +166,7 @@ public class UserServiceIml implements UserService {
 //            }
 //        }
         User user = userRepository.findByEmail(email);
-        return user!=null && user.getPassword().equals(password);
+        return user!=null && user.getPassword().equals(password) ? Optional.of(user) : null;
 
     }
 

@@ -7,6 +7,7 @@ import com.example.crud.request.UpdateUserReq;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface UserService {
@@ -16,7 +17,7 @@ public interface UserService {
     public UserDto createUser(CreateUserReq req);
     public UserDto updateUser(UpdateUserReq req, int id);
     public void deleteUser(int id);
-    public boolean check(String email,String password);
+    public Optional<User> check(String email, String password);
 
 
 }
