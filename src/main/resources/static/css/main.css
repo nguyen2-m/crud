@@ -444,6 +444,7 @@
     font-size: 1.8rem;
 }
 .auth-form__social--facebook{
+    /*background: blue;*/
     background-color: #3a5a98;
     color: var(--white-color);
 

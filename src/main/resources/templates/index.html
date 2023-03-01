@@ -5,6 +5,9 @@
     <title>Hello thymeleaf</title>
     <link th:href="@{/css/main.css}" type="text/css" rel="stylesheet" />
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" th:href="@{/font/fontawesome-free-6.2.1/css/all.min.css}">
+    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css}">
 </head>
 <body>
 <div class="app">
@@ -16,13 +19,13 @@
                     <li class="header__navbar-iteam header__navbar-iteam--has-qr header__navbar-iteam--saparate">
                         vao cua hang tren ung dung
                         <div class="header__qr">
-                            <img src="./assets/img/qr_code.png" alt="QR code" class="header__qr-img">
+                            <img src="/img/qr_code.png" alt="QR code" class="header__qr-img">
                             <div class="header__qr-apps">
                                 <a href="" class="header__qr-link">
-                                    <img src="./assets/img/google_play.png" alt="google" class="header__qr-download-img">
+                                    <img src="/img/google_play.png" alt="google" class="header__qr-download-img">
                                 </a>
                                 <a href="" class="header__qr-link">
-                                    <img src="./assets/img/app_store.png" alt="appStore" class="header__qr-download-img">
+                                    <img src="/img/app_store.png" alt="appStore" class="header__qr-download-img">
                                 </a>
                             </div>
                         </div>
@@ -50,7 +53,7 @@
                                 <ul class="header__notify-list">
                                     <li class="header__notify-item header__notify-item--viewed">
                                         <a href="" class="header__notify-link">
-                                            <span><img src="./assets/img/qr_code.png" alt="" class="header__notify-img"></span>
+                                            <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                             <div class="header__notify-info">
                                                 <span class="header__notify-name">my pham ohui chinh hang</span>
                                                 <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
@@ -59,7 +62,7 @@
                                     </li>
                                     <li class="header__notify-item">
                                         <a href="" class="header__notify-link">
-                                            <span><img src="./assets/img/qr_code.png" alt="" class="header__notify-img"></span>
+                                            <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                             <div class="header__notify-info">
                                                 <span class="header__notify-name">my pham ohui chinh hang</span>
                                                 <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
@@ -67,7 +70,7 @@
                                         </a>
                                     </li><li class="header__notify-item">
                                     <a href="" class="header__notify-link">
-                                        <span><img src="./assets/img/qr_code.png" alt="" class="header__notify-img"></span>
+                                        <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                         <div class="header__notify-info">
                                             <span class="header__notify-name">my pham ohui chinh hang</span>
                                             <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
@@ -75,7 +78,7 @@
                                     </a>
                                 </li><li class="header__notify-item">
                                     <a href="" class="header__notify-link">
-                                        <span><img src="./assets/img/qr_code.png" alt="" class="header__notify-img"></span>
+                                        <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                         <div class="header__notify-info">
                                             <span class="header__notify-name">my pham ohui chinh hang</span>
                                             <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
@@ -100,7 +103,7 @@
                         <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">dang nhap</li>
                     </div>
                     <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure1} ? '' : auth-hidden">
-                        <img src="./assets/img/qr_code.png" alt="" class="header__navbar-user-img">
+                        <img src="/img/qr_code.png" alt="" class="header__navbar-user-img">
                         <span class="header__navbar-user-name">nguyen minh hoa</span>
                         <ul class="header__navbar-user-menu">
                             <li class="header__navbar-user-item">
@@ -127,7 +130,7 @@
                     <a href="http://127.0.0.1:5500/f8-shop/index.html" class="header__logo-link">
                         <div class="anhsize">
 
-                            <img class="anhlogo" src="/assets/img/image011.jpeg" alt="">
+                            <img class="anhlogo" src="/img/image011.jpeg" alt="">
                         </div>
                         <!-- <svg viewBox="0 0 192 65" class="header__logo-img">
                             <g fill-rule="evenodd">
@@ -181,7 +184,7 @@
                 <div class="header__cart">
                     <i class="header__cart-icon fas fa-shopping-cart"></i>
                     <div class="header__cart-list header__cart-list--no-cart">
-                        <img src="./assets/img/qr_code.png" alt="" class="header__cart-no-cart-img">
+                        <img src="/img/qr_code.png" alt="" class="header__cart-no-cart-img">
                         <span class="header__cart-list-no-cart-msg">chua co san pham</span>
                     </div>
                 </div>
@@ -248,7 +251,7 @@
                         <div class="grid__row">
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -288,7 +291,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -328,7 +331,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -368,7 +371,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -408,7 +411,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -448,7 +451,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -488,7 +491,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -528,7 +531,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -568,7 +571,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -608,7 +611,7 @@
                             </div>
                             <div class="grid__column-2-4">
                                 <a class="home-product-item" href="#">
-                                    <div class="home-product-item__img" style="background-image: url(./assets/img/pyua.jpeg);">
+                                    <div class="home-product-item__img" style="background-image: url(/img/pyua.jpeg);">
                                     </div>
                                     <h4 class="home-product-item__name">collagen đều đặn mỗi ngày nha chị em nhà mình ơi</h4>
                                     <div class="home-product-item__price">
@@ -760,13 +763,13 @@
             </div><div class="grid__column-2-4">
                 <h3 class="footer__heading">vao cua hang tren ung dung</h3>
                 <div class="footer__download">
-                    <img src="./assets/img/qr_code.png" alt="QR" class="footer__download-qr">
+                    <img src="/img/qr_code.png" alt="QR" class="footer__download-qr">
                     <div class="footer__download-apps">
                         <a href="" class="footer__download-app-link">
-                            <img src="./assets/img/google_play.png" alt="googleplay" class="footer__download-app-img">
+                            <img src="/img/google_play.png" alt="googleplay" class="footer__download-app-img">
                         </a>
                         <a href="" class="footer__download-app-link">
-                            <img src="./assets/img/app_store.png" alt="appstore" class="footer__download-app-img">
+                            <img src="/img/app_store.png" alt="appstore" class="footer__download-app-img">
                         </a>
                     </div>
                 </div>
@@ -882,6 +885,6 @@
 
 </div>
 
-<script src="../js/main.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
