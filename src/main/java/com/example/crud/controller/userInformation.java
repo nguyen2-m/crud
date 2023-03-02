@@ -25,5 +25,5 @@ import java.util.List;
 @Controller
 @RequestMapping("/home")
 public class userInformation {
-//    @GetMapping
+
 }

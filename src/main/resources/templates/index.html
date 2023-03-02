@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+
     <title>Hello thymeleaf</title>
     <link th:href="@{/css/main.css}" type="text/css" rel="stylesheet" />
     <link th:href="@{/css/style.css}" type="text/css" rel="stylesheet" />
     <link rel="stylesheet" th:href="@{/font/fontawesome-free-6.2.1/css/all.min.css}">
-<!--    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap}" rel="stylesheet">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!--    <link th:href="@{https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap}" rel="stylesheet">-->
     <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css}">
 </head>
 <body>
@@ -31,7 +33,7 @@
                         </div>
                     </li>
                     <li class="header__navbar-iteam">
-                        <span class="header__navbar-title--no-pointer">ket noi</span>
+                        <span class="header__navbar-title--no-pointer">kết nối</span>
                         <a class="header__navbar-icon-link" href="">
                             <i class="header__navbar-icon fa-brands fa-facebook"></i>
                         </a>
@@ -45,18 +47,18 @@
                     <li class="header__navbar-iteam header__navbar-iteam--has-notify">
                         <a href="" class="header__navbar-iteam-link">
                             <i class="header__navbar-icon far fa-bell"></i>
-                            thong bao
+                            thông báo
                             <div class="header__notify">
                                 <header class="header__notify-header">
-                                    <h3>thong bao moi nhan</h3>
+                                    <h3>thông báo mới nhận</h3>
                                 </header>
                                 <ul class="header__notify-list">
                                     <li class="header__notify-item header__notify-item--viewed">
                                         <a href="" class="header__notify-link">
                                             <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                             <div class="header__notify-info">
-                                                <span class="header__notify-name">my pham ohui chinh hang</span>
-                                                <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
+                                                <span class="header__notify-name">mỹ phẩm chĩnh hãng nhật bản</span>
+                                                <span class="header__notify-descrotion">colagen làm đẹp da</span>
                                             </div>
                                         </a>
                                     </li>
@@ -64,30 +66,30 @@
                                         <a href="" class="header__notify-link">
                                             <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                             <div class="header__notify-info">
-                                                <span class="header__notify-name">my pham ohui chinh hang</span>
-                                                <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
+                                                <span class="header__notify-name">mỹ phẩm chĩnh hãng nhật bản</span>
+                                                <span class="header__notify-descrotion">colagen làm đẹp da</span>
                                             </div>
                                         </a>
                                     </li><li class="header__notify-item">
                                     <a href="" class="header__notify-link">
                                         <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                         <div class="header__notify-info">
-                                            <span class="header__notify-name">my pham ohui chinh hang</span>
-                                            <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
+                                            <span class="header__notify-name">mỹ phẩm chĩnh hãng nhật bản</span>
+                                            <span class="header__notify-descrotion">colagen làm đẹp da</span>
                                         </div>
                                     </a>
                                 </li><li class="header__notify-item">
                                     <a href="" class="header__notify-link">
                                         <span><img src="/img/qr_code.png" alt="" class="header__notify-img"></span>
                                         <div class="header__notify-info">
-                                            <span class="header__notify-name">my pham ohui chinh hang</span>
-                                            <span class="header__notify-descrotion">mo ta my pham ohui chinh hang</span>
+                                            <span class="header__notify-name">mỹ phẩm chĩnh hãng nhật bản</span>
+                                            <span class="header__notify-descrotion">colagen làm đẹp da</span>
                                         </div>
                                     </a>
                                 </li>
                                 </ul>
                                 <footer class="header__notify-footer">
-                                    <a href="" class="header__notifi--footer-home-filter__btn btn">xem tat ca</a>
+                                    <a href="" class="header__notifi--footer-home-filter__btn btn">xem tất cả</a>
                                 </footer>
                             </div>
                         </a>
@@ -95,28 +97,28 @@
                     <li class="header__navbar-iteam">
                         <a href="" class="header__navbar-iteam-link">
                             <i class="header__navbar-icon fa-solid fa-circle-info"></i>
-                            tro giup
+                            trợ giúp
                         </a>
                     </li>
                     <div th:classappend="${isLoginFailure} ? auth_none : ''">
-                        <li onclick="dangKyFnc()" class="header__navbar-iteam header__navbar-iteam--strong header__navbar-iteam--saparate">dang ky</li>
-                        <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">dang nhap</li>
+                        <li onclick="dangKyFnc()" class="header__navbar-iteam header__navbar-iteam--strong header__navbar-iteam--saparate">đăng ký</li>
+                        <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">đăng nhập</li>
                     </div>
                     <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure} ? '' : auth_none">
                         <img src="/img/qr_code.png" alt="" class="header__navbar-user-img">
                         <span class="header__navbar-user-name" th:text="${name}"></span>
                         <ul class="header__navbar-user-menu">
                             <li class="header__navbar-user-item">
-                                <a href="">tai khoan cua toi</a>
+                                <a href="/user/information">tài khoản của tôi</a>
                             </li>
                             <li class="header__navbar-user-item">
-                                <a href="">dia chi cua toi</a>
+                                <a href="">địa chỉ của tôi</a>
                             </li>
                             <li class="header__navbar-user-item">
-                                <a href="">don mua</a>
+                                <a href="">đơn mua</a>
                             </li>
                             <li class="header__navbar-user-item ngancach">
-                                <a href="/user/main"> dang xuat</a>
+                                <a href="/user/main"> đăng xuất</a>
                             </li>
                         </ul>
                     </li>
@@ -144,18 +146,18 @@
 
                 <div class="header__search">
                     <div class="header__search-input-wrap">
-                        <input type="text" class="header__search-input" placeholder="tim kiem san pham">
+                        <input type="text" class="header__search-input" placeholder="tìm kiếm sản phẩm">
                         <div class="header__search-history">
-                            <h3 class="header__search-history-heading">lich su tim kiem</h3>
+                            <h3 class="header__search-history-heading">lịch sử tim kiếm</h3>
                             <ul class="header__search-history-list">
                                 <li class="header__search-history-item">
-                                    <a href="">kem duong da</a>
+                                    <a href="">kem dưỡng da</a>
                                 </li>
                                 <li class="header__search-history-item">
-                                    <a href="">tri mun kem</a>
+                                    <a href="">kem trị mun</a>
                                 </li>
                                 <li class="header__search-history-item">
-                                    <a href="">kem duong da</a>
+                                    <a href="">colagen dạng nước</a>
                                 </li>
                             </ul>
                         </div>
@@ -170,7 +172,7 @@
                                 <i class="fas fa-check"></i>
                             </li>
                             <li class="header__search-option-item">
-                                <span>ngoai shop</span>
+                                <span>ngoài shop</span>
                                 <i class="fas fa-check"></i>
                             </li>
                         </ul>
@@ -185,7 +187,7 @@
                     <i class="header__cart-icon fas fa-shopping-cart"></i>
                     <div class="header__cart-list header__cart-list--no-cart">
                         <img src="/img/qr_code.png" alt="" class="header__cart-no-cart-img">
-                        <span class="header__cart-list-no-cart-msg">chua co san pham</span>
+                        <span class="header__cart-list-no-cart-msg">chưa có sản phẩm</span>
                     </div>
                 </div>
             </div>
@@ -196,16 +198,16 @@
             <div class="grid__row app__content">
                 <div class="grid__column-2">
                     <nav class="category">
-                        <h3 class="category__heading">Danh Muc</h3>
+                        <h3 class="category__heading">Danh Mục</h3>
                         <ul class="category-list">
                             <li class="categori-item category-item--active">
-                                <a href="#" class="category-item__link">San Pham</a>
+                                <a href="#" class="category-item__link">Sản Phẩm</a>
                             </li>
                             <li class="categori-item">
-                                <a href="#" class="category-item__link">Trang Diem Moi</a>
+                                <a href="#" class="category-item__link">Trang Điểm Môi</a>
                             </li>
                             <li class="categori-item">
-                                <a href="#" class="category-item__link">Trang Diem Mat</a>
+                                <a href="#" class="category-item__link">Trang Điểm Mắt</a>
                             </li>
 
                         </ul>
@@ -215,20 +217,20 @@
 
                 <div class="grid__column-10">
                     <div class="home-filter">
-                        <span class="home-filter__label">Sap xep theo</span>
-                        <button class="home-filter__btn btn">Pho Bien</button>
-                        <button class="home-filter__btn btn btn--primary">Moi Nhat</button>
-                        <button class="home-filter__btn btn">Ban Chay</button>
+                        <span class="home-filter__label">Sắp xếp theo</span>
+                        <button class="home-filter__btn btn">Phổ Biến</button>
+                        <button class="home-filter__btn btn btn--primary">Mới Nhất</button>
+                        <button class="home-filter__btn btn">Bán Chạy</button>
 
                         <div class="select-input">
-                            <span class="select-input__label">Gia</span>
+                            <span class="select-input__label">Giá</span>
                             <i class="select-input__icon fas fa-angle-down"></i>
                             <ul class="select-input__list">
                                 <li class="select-input__item">
-                                    <a href="" class="select-input__link"> Gia Thap Den Cao</a>
+                                    <a href="" class="select-input__link">Giá Thấp Đến Cao</a>
                                 </li>
                                 <li class="select-input__item">
-                                    <a href="" class="select-input__link"> Gia Cao Den Thap</a>
+                                    <a href="" class="select-input__link"> Giá Cao Đến Thấp</a>
                                 </li>
                             </ul>
                         </div>
@@ -275,12 +277,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -315,12 +317,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -355,12 +357,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -395,12 +397,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -435,12 +437,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -475,12 +477,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -515,12 +517,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -555,12 +557,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -595,12 +597,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -635,12 +637,12 @@
 
                                     <div class="home-product-item__origin">
                                         <span class="home-product-item__brand">PyuA</span>
-                                        <span class="home-product-item__origin-name">Nhat Ban</span>
+                                        <span class="home-product-item__origin-name">Nhật Bản</span>
                                     </div>
 
                                     <div class="home-product-item__favourite">
                                         <i class="fas fa-check"></i>
-                                        <span>yeu thich</span>
+                                        <span>yêu thích</span>
                                     </div>
                                     <div class="home-product-item__sale-off">
                                         <span class="home-product-item__slae-off-percent">10%</span>
@@ -649,6 +651,7 @@
 
                                 </a>
                             </div>
+
                         </div>
                     </div>
 
@@ -793,32 +796,35 @@
         <div id="model-register" class="auth-form auth_none">
             <form th:action="@{register}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
-                    <h3 class="auth-form__heading">dang ky</h3>
-                    <span class="auth-form__switch-home-filter__btn btn">dang nhap</span>
+                    <h3 class="auth-form__heading">Đăng Ký</h3>
+                    <span class="auth-form__switch-home-filter__btn btn">Đăng Nhập</span>
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" name="email" placeholder="nhap email cua ban">
+                        <input type="text" class="auth-form__input" name="name" placeholder="nhập tên của bạn">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" name="password" placeholder="mk cua ban">
+                        <input type="text" class="auth-form__input" name="email" placeholder="nhập email của bạn">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" name="password1" placeholder="nhap lai mk">
+                        <input type="password" class="auth-form__input" name="password" placeholder="nhập mật khẩu">
+                    </div>
+                    <div class="auth-form__group">
+                        <input type="password" class="auth-form__input" name="password1" placeholder="nhập lại mật khẩu">
                     </div>
                 </div>
 
                 <div class="auth-form__aside">
                     <p class="auth-form__policy-text">
-                        bang viec dang ky,ban da dong y voi shopee
-                        <a href="" class="auth-form__text-link">dieu khoan dich vu</a> &
-                        <a href="" class="auth-form__text-link"> chinh sach bao mat</a>
+                        bằng việc đăng ký,bạn đã đồng ý với StoreJp
+                        <a href="" class="auth-form__text-link">điều khoản dịch vụ</a> &
+                        <a href="" class="auth-form__text-link"> chính sách bảo mật</a>
                     </p>
                 </div>
 
                 <div class="auth-from__controls">
-                    <button th:onsubmit="" class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">TRO LAI</button>
-                    <button class="home-filter__btn btn home-filter__btn btn--primary">DANG KY</button>
+                    <button th:onsubmit="" class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">Trở lại</button>
+                    <button class="home-filter__btn btn home-filter__btn btn--primary">ĐĂNG KÝ</button>
                 </div>
             </form>
 
@@ -827,11 +833,11 @@
             <div class="auth-form__social">
                 <a href="" class="auth-form__social--facebook home-filter__btn btn home-filter__btn btn--size-s home-filter__btn btn--with-icon">
                     <i class="auth-form__social-icon fab fa-facebook-square"></i>
-                    <span class="auth-form__social-title">ket noi voi facebook</span>
+                    <span class="auth-form__social-title">Kết nối với facebook</span>
                 </a>
                 <a href="" class="auth-form__social--google home-filter__btn btn home-filter__btn btn--size-s home-filter__btn btn--with-icon">
                     <i class="auth-form__social-icon fab fa-google"></i>
-                    <span class="auth-form__social-title">ket noi voi google</span>
+                    <span class="auth-form__social-title">kết nối với google</span>
                 </a>
             </div>
 
@@ -840,29 +846,29 @@
         <div id="model-login" class="auth-form"  th:classappend="${isLoginFailure1} ? '' : auth_none">
             <form th:action="@{login}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
-                    <h3 class="auth-form__heading">dang nhap</h3>
-                    <span class="auth-form__switch-home-filter__btn btn">dang ky</span>
+                    <h3 class="auth-form__heading">đăng nhập</h3>
+                    <span class="auth-form__switch-home-filter__btn btn">đăng ký</span>
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" name="email" placeholder="nhap email cua ban">
+                        <input type="text" class="auth-form__input" name="email" placeholder="nhập email của bạn">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" name="password" placeholder="mk cua ban">
+                        <input type="password" class="auth-form__input" name="password" placeholder="nhập mật khẩu của bạn">
                     </div>
                 </div>
 
                 <div class="auth-form__aside">
                     <div class="auth-form__help">
-                        <a href="" class="auth-form__help-link auth-form__help-forgot">quen mat khau</a>
+                        <a href="" class="auth-form__help-link auth-form__help-forgot">quên mật khẩu</a>
                         <span class="auth-form__help-separate"></span>
-                        <a href="" class="auth-form__help-link">can tro giup?</a>
+                        <a href="" class="auth-form__help-link">cần trợ giúp?</a>
                     </div>
                 </div>
 
                 <div class="auth-from__controls">
-                    <button class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">TRO LAI</button>
-                    <button type="submit" class="home-filter__btn btn home-filter__btn btn--primary">DANG NHAP</button>
+                    <button class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">TRỢ GIÚP</button>
+                    <button type="submit" class="home-filter__btn btn home-filter__btn btn--primary">ĐĂNG NHẬP</button>
                 </div>
             </form>
 
@@ -871,11 +877,11 @@
             <div class="auth-form__social">
                 <a href="" class="auth-form__social--facebook home-filter__btn btn home-filter__btn btn--size-s home-filter__btn btn--with-icon">
                     <i class="auth-form__social-icon fab fa-facebook-square"></i>
-                    <span class="auth-form__social-title">ket noi voi facebook</span>
+                    <span class="auth-form__social-title">kết nối với facebook</span>
                 </a>
                 <a href="" class="auth-form__social--google home-filter__btn btn home-filter__btn btn--size-s home-filter__btn btn--with-icon">
                     <i class="auth-form__social-icon fab fa-google"></i>
-                    <span class="auth-form__social-title">ket noi voi google</span>
+                    <span class="auth-form__social-title">kết nối với google</span>
                 </a>
             </div>
 

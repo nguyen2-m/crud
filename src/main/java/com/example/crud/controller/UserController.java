@@ -7,8 +7,8 @@ import com.example.crud.request.CreateUserReq;
 import com.example.crud.request.LoginReq;
 import com.example.crud.request.UpdateUserReq;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,11 +23,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+//@SessionAttributes("session")
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
-
+    HttpSession session;
 
 
     @GetMapping("/search")
@@ -44,19 +45,30 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id) {
-        UserDto result = userService.getUserById(id);
-        return ResponseEntity.ok(result);
+    @GetMapping("/information")
+    public String getUserByEmail(Model model, HttpSession session) {
+        UserDto data = (UserDto)session.getAttribute("user");
+
+        if(data != null){
+            model.addAttribute("user",data);
+        }
+//        UserDto result = userService.getUserByEmail((String) session.getAttribute("username"));
+//        System.out.println(result);
+//        model.addAttribute("name",result.getName());
+//        model.addAttribute("phone",result.getPhone());
+//        model.addAttribute("birthday",result.getBirthday());
+//        model.addAttribute("avatar",result.getAvatar());
+        return "information";
     }
 
     @PostMapping("/register")
-    public String creatUser(@ModelAttribute CreateUserReq req, Model model) {
+    public String creatUser(@ModelAttribute CreateUserReq req, Model model,HttpSession session) {
         UserDto result = userService.createUser(req);
+//        session.setAttribute("useremail",req.getEmail());
         LoginReq loginReq= new LoginReq();
         loginReq.setEmail(req.getEmail());
         loginReq.setPassword(req.getPassword());
-        return login(loginReq,model);
+        return login(loginReq,model,session);
     }
 
     @PutMapping("/{id}")
@@ -100,10 +112,7 @@ public class UserController {
         }
         return null;
     }
-    @GetMapping("/main")
-    public String index(){
-        return "index";
-    }
+
 
     @GetMapping("/main/login")
     public String mainLogin(@ModelAttribute LoginReq loginReq, Model model){
@@ -117,25 +126,32 @@ public class UserController {
         model.addAttribute("date", new Date());
         return "date";
     }
+    @GetMapping("/main")
+    public String index(){
+        return "index";
+
+    }
 
 
     @PostMapping("/login")
-    public String login(@ModelAttribute LoginReq user, Model model) {
+    public String login(@ModelAttribute LoginReq user, Model model,HttpSession session) {
+
         String email = user.getEmail();
         String password = user.getPassword();
-//        System.out.println(email);
-//        System.out.println(password);
 
         Optional<User> result = userService.check(email,password);
         if(result==null){
-            System.out.println(email);
-            System.out.println(password);
+
             return mainLogin(user, model);
 
         }else{
+            session.removeAttribute("user");
+            session.setAttribute("user", new UserDto(result.get().getId(),result.get().getName(), result.get().getEmail(), result.get().getPhone(),result.get().getAvatar(),result.get().getBirthday()));
+//            UserDto data = (UserDto)session.getAttribute("user");
             model.addAttribute("isLoginFailure", true);
             model.addAttribute("isLoginFailure1", false);
             model.addAttribute("name",result.get().getName());
+//            System.out.println(result.get());
             return "index";
         }
     }

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public interface UserService {
     public List<UserDto> getListUser();
-    public UserDto getUserById(int id);
+    public UserDto getUserByEmail(String email);
     public List<UserDto> searchUser(String keyword);
     public UserDto createUser(CreateUserReq req);
     public UserDto updateUser(UpdateUserReq req, int id);

@@ -8,7 +8,6 @@ import com.example.crud.model.mapper.UserMapper;
 import com.example.crud.repository.UserRepository;
 import com.example.crud.request.CreateUserReq;
 import com.example.crud.request.UpdateUserReq;
-import jakarta.annotation.Nullable;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,8 +42,8 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    public UserDto getUserById(int id) {
-        Optional<User> user = userRepository.findById(id);
+    public UserDto getUserByEmail(String email) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
         if(user.isEmpty()){
             throw new NotFoundException("User khong ton tai trong he thong");
 //            if(user.getId()==id){
@@ -79,9 +78,9 @@ public class UserServiceIml implements UserService {
         user1.setEmail(req.getEmail());
         user1.setName(req.getName());
         user1.setPhone(req.getPhone());
-        System.out.println(req.getPassword()+"   day ne");
+
         user1.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
-        System.out.println(user1.getPassword());
+
         userRepository.save(user1);
         return UserMapper.toUserDto(user1);
     }
@@ -166,10 +165,6 @@ public class UserServiceIml implements UserService {
 //            }
 //        }
         User user = userRepository.findByEmail(email);
-        System.out.println(user.getPassword());
-        System.out.println(password);
-        System.out.println(BCrypt.hashpw(password.toString(), BCrypt.gensalt(12)));
-        System.out.println(BCrypt.checkpw(password.toString(), user.getPassword()));
         return user!=null && BCrypt.checkpw(password, user.getPassword()) ? Optional.of(user) : null;
 
     }
