@@ -73,34 +73,36 @@ public class UserServiceIml implements UserService {
         if(rs != null) {
             throw new InternalServerException("Email is already in system");
         }
-        User user1 = new User();
-
-        user1.setEmail(req.getEmail());
-        user1.setName(req.getName());
-        user1.setPhone(req.getPhone());
-
-        user1.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
-
-        userRepository.save(user1);
-        return UserMapper.toUserDto(user1);
+//        User user1 = new User(result.get().getId(), result.get().getName(), result.get().getEmail(), result.get().getPhone(), result.get().getAvatar());
+//
+//        user1.setEmail(req.getEmail());
+//        user1.setName(req.getName());
+//        user1.setPhone(req.getPhone());
+//
+//        user1.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+//
+//        userRepository.save(user1);
+        return null;
     }
 
     @Override
-    public UserDto updateUser(UpdateUserReq req, int id) {
+    public UserDto updateUser(UserDto req, int id) {
         Optional<User> result = userRepository.findById(id);
         if(result.isEmpty()){
             throw new NotFoundException("User khong ton tai trong he thong");
 
         }
         User rs = userRepository.findByEmail(req.getEmail());
-        if(rs != null) {
-            throw new InternalServerException("Email is already in system");
-        }
+//        if(rs != null) {
+//            throw new InternalServerException("Email is already in system");
+//        }
         User user = result.get();
         user.setEmail(req.getEmail());
+        user.setBirthday(req.getBirthday());
         user.setName(req.getName());
         user.setPhone(req.getPhone());
-        user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+//        user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+        user.setAvatar(req.getAvatar());
 
         try {
             userRepository.save(user);

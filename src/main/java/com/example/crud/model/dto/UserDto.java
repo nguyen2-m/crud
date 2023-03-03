@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,13 +18,14 @@ public class UserDto  implements Serializable {
     private int id;
     private String name;
     private String email;
+
     private String phone;
+
     private String avatar;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-    public UserDto(String name, String email, String phone) {
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-    }
+
+
+
 }

@@ -15,7 +15,7 @@ public interface UserService {
     public UserDto getUserByEmail(String email);
     public List<UserDto> searchUser(String keyword);
     public UserDto createUser(CreateUserReq req);
-    public UserDto updateUser(UpdateUserReq req, int id);
+    public UserDto updateUser(UserDto req, int id);
     public void deleteUser(int id);
     public Optional<User> check(String email, String password);
 

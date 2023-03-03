@@ -105,7 +105,7 @@
                         <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">đăng nhập</li>
                     </div>
                     <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure} ? '' : auth_none">
-                        <img src="/img/qr_code.png" alt="" class="header__navbar-user-img">
+                        <img th:src="${avatar}" alt="" class="header__navbar-user-img">
                         <span class="header__navbar-user-name" th:text="${name}"></span>
                         <ul class="header__navbar-user-menu">
                             <li class="header__navbar-user-item">

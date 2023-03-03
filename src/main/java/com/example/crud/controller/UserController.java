@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +47,11 @@ public class UserController {
     }
 
     @GetMapping("/information")
-    public String getUserByEmail(Model model, HttpSession session) {
-        UserDto data = (UserDto)session.getAttribute("user");
+    public String information(Model model, HttpSession session) {
+//        UserDto data = (UserDto)session.getAttribute("user");
+        UserDto data = userService.getUserByEmail((String) session.getAttribute("email"));
+        System.out.println(data.getName());
+//        System.out.println(data.getBirthday());
 
         if(data != null){
             model.addAttribute("user",data);
@@ -71,24 +75,11 @@ public class UserController {
         return login(loginReq,model,session);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@Valid @RequestBody UpdateUserReq req, Errors errors, @PathVariable int id) {
-        UserDto result = userService.updateUser(req, id);
-        return ResponseEntity.ok(result);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok("Delete success");
-    }
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @PostMapping("/profile")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws Exception {
-//        ImageUploadResponse response = imageDataService.uploadImage(file);
+    @PostMapping("/save")
+    public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("avatar_file") MultipartFile file) {
+        System.out.println(req.getName());
+        System.out.println(req.getBirthday());
+        UserDto result = new UserDto();
         if (!file.isEmpty()) {
             try {
                 String uploadsDir = "/uploads/";
@@ -104,12 +95,56 @@ public class UserController {
                 String filePath = toUploads + orgName;
                 File dest = new File(filePath);
                 file.transferTo(dest);
+                result.setAvatar(filePath);
                 System.out.println(filePath);
-                return ResponseEntity.ok("Upload success");
+
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             } finally {
 
             }
         }
+        req.setAvatar(result.getAvatar());
+
+        userService.updateUser(req, req.getId());
+
+
+        return "redirect:/user/information";
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable int id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok("Delete success");
+    }
+
+    @Autowired
+    private HttpServletRequest request;
+
+    @PostMapping("/profile")
+    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws Exception {
+//        ImageUploadResponse response = imageDataService.uploadImage(file);
+//        if (!file.isEmpty()) {
+//            try {
+//                String uploadsDir = "/uploads/";
+//                String toUploads = request.getServletContext().getRealPath(uploadsDir);
+//                if (!new File(toUploads).exists()) {
+//                    new File(toUploads).mkdir();
+//                }
+//
+////                log.info("toUploads = {}", toUploads);
+//                System.out.println(toUploads);
+//
+//                String orgName = file.getOriginalFilename();
+//                String filePath = toUploads + orgName;
+//                File dest = new File(filePath);
+//                file.transferTo(dest);
+//                System.out.println(filePath);
+//                return ResponseEntity.ok("Upload success");
+//            } finally {
+//
+//            }
+//        }
         return null;
     }
 
@@ -140,18 +175,25 @@ public class UserController {
         String password = user.getPassword();
 
         Optional<User> result = userService.check(email,password);
+//        User userSession = result.get();
+
         if(result==null){
 
             return mainLogin(user, model);
 
         }else{
-            session.removeAttribute("user");
-            session.setAttribute("user", new UserDto(result.get().getId(),result.get().getName(), result.get().getEmail(), result.get().getPhone(),result.get().getAvatar(),result.get().getBirthday()));
+//            UserDto userSession = new UserDto(result.get().getId(), result.get().getName(), result.get().getEmail(), result.get().getPhone(), result.get().getAvatar(),result.get().getBirthday());
+//            session.removeAttribute("user");
+//            session.setAttribute("user", userSession);
 //            UserDto data = (UserDto)session.getAttribute("user");
+//            System.out.println("mode1111");
+            session.setAttribute("email",result.get().getEmail());
             model.addAttribute("isLoginFailure", true);
             model.addAttribute("isLoginFailure1", false);
             model.addAttribute("name",result.get().getName());
-//            System.out.println(result.get());
+            model.addAttribute("avatar",result.get().getAvatar());
+
+            System.out.println(result.get().getAvatar());
             return "index";
         }
     }
