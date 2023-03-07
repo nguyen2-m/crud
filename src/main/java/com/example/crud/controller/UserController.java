@@ -1,11 +1,10 @@
 package com.example.crud.controller;
 
 import com.example.crud.Service.UserService;
-import com.example.crud.entity.User;
+import com.example.crud.entity.Users;
 import com.example.crud.model.dto.UserDto;
 import com.example.crud.request.CreateUserReq;
 import com.example.crud.request.LoginReq;
-import com.example.crud.request.UpdateUserReq;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -174,7 +172,7 @@ public class UserController {
         String email = user.getEmail();
         String password = user.getPassword();
 
-        Optional<User> result = userService.check(email,password);
+        Optional<Users> result = userService.check(email,password);
 //        User userSession = result.get();
 
         if(result==null){

@@ -1,13 +1,12 @@
 package com.example.crud.Service;
 
-import com.example.crud.entity.User;
+import com.example.crud.entity.Users;
 import com.example.crud.exception.InternalServerException;
 import com.example.crud.exception.NotFoundException;
 import com.example.crud.model.dto.UserDto;
 import com.example.crud.model.mapper.UserMapper;
 import com.example.crud.repository.UserRepository;
 import com.example.crud.request.CreateUserReq;
-import com.example.crud.request.UpdateUserReq;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,9 +31,9 @@ public class UserServiceIml implements UserService {
 
     @Override
     public List<UserDto> getListUser() {
-        List<User> users = userRepository.findAll();
+        List<Users> users = userRepository.findAll();
         List<UserDto> result = new ArrayList<UserDto>();
-        for(User user : users){
+        for(Users user : users){
             result.add(UserMapper.toUserDto(user));
         }
         return result;
@@ -43,7 +42,7 @@ public class UserServiceIml implements UserService {
 
     @Override
     public UserDto getUserByEmail(String email) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email));
+        Optional<Users> user = Optional.ofNullable(userRepository.findByEmail(email));
         if(user.isEmpty()){
             throw new NotFoundException("User khong ton tai trong he thong");
 //            if(user.getId()==id){
@@ -56,9 +55,9 @@ public class UserServiceIml implements UserService {
 
     @Override
     public List<UserDto> searchUser(String keyword) {
-        List<User> users = userRepository.findAll();
+        List<Users> users = userRepository.findAll();
         List<UserDto> result = new ArrayList<>();
-        for (User user : users){
+        for (Users user : users){
             if (user.getName().contains(keyword)){
                 result.add(UserMapper.toUserDto(user));
             }
@@ -69,7 +68,7 @@ public class UserServiceIml implements UserService {
 
     @Override
     public UserDto createUser(CreateUserReq req) {
-        User rs = userRepository.findByEmail(req.getEmail());
+        Users rs = userRepository.findByEmail(req.getEmail());
         if(rs != null) {
             throw new InternalServerException("Email is already in system");
         }
@@ -87,29 +86,29 @@ public class UserServiceIml implements UserService {
 
     @Override
     public UserDto updateUser(UserDto req, int id) {
-        Optional<User> result = userRepository.findById(id);
+        Optional<Users> result = userRepository.findById(id);
         if(result.isEmpty()){
             throw new NotFoundException("User khong ton tai trong he thong");
 
         }
-        User rs = userRepository.findByEmail(req.getEmail());
+        Users rs = userRepository.findByEmail(req.getEmail());
 //        if(rs != null) {
 //            throw new InternalServerException("Email is already in system");
 //        }
-        User user = result.get();
-        user.setEmail(req.getEmail());
-        user.setBirthday(req.getBirthday());
-        user.setName(req.getName());
-        user.setPhone(req.getPhone());
+        Users users = result.get();
+        users.setEmail(req.getEmail());
+        users.setBirthday(req.getBirthday());
+        users.setName(req.getName());
+        users.setPhone(req.getPhone());
 //        user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
-        user.setAvatar(req.getAvatar());
+        users.setAvatar(req.getAvatar());
 
         try {
-            userRepository.save(user);
+            userRepository.save(users);
         }catch (Exception ex){
             throw new InternalServerException("Database error. Can't update user");
         }
-        return UserMapper.toUserDto(user);
+        return UserMapper.toUserDto(users);
 //        for (User user2 : user) {
 //            if (user2.getId() == id) {
 //                if (!user2.getEmail().equals(req.getEmail())) {
@@ -136,7 +135,7 @@ public class UserServiceIml implements UserService {
     @Override
     public void deleteUser(int id) {
 
-        Optional<User> user = userRepository.findById(id);
+        Optional<Users> user = userRepository.findById(id);
         if(user.isEmpty()){
             throw new NotFoundException("No user found");
         }
@@ -158,7 +157,7 @@ public class UserServiceIml implements UserService {
     }
 
     @Override
-    public Optional<User> check(String email, String password) {
+    public Optional<Users> check(String email, String password) {
 
 //        List<User> users = userRepository.findAll();
 //        for (User user : users){
@@ -166,8 +165,8 @@ public class UserServiceIml implements UserService {
 //                return true;
 //            }
 //        }
-        User user = userRepository.findByEmail(email);
-        return user!=null && BCrypt.checkpw(password, user.getPassword()) ? Optional.of(user) : null;
+        Users users = userRepository.findByEmail(email);
+        return users !=null && BCrypt.checkpw(password, users.getPassword()) ? Optional.of(users) : null;
 
     }
 
