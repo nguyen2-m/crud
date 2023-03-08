@@ -104,20 +104,20 @@
                         <li onclick="dangKyFnc()" class="header__navbar-iteam header__navbar-iteam--strong header__navbar-iteam--saparate">đăng ký</li>
                         <li onclick="dangNhapFnc()" class="header__navbar-iteam header__navbar-iteam--strong">đăng nhập</li>
                     </div>
-                    <li class="header__navbar-iteam header__navbar-users" th:classappend="${isLoginFailure} ? '' : auth_none">
-                        <img th:src="${avatar}" alt="" class="header__navbar-users-img">
-                        <span class="header__navbar-users-name" th:text="${name}"></span>
-                        <ul class="header__navbar-users-menu">
-                            <li class="header__navbar-users-item">
+                    <li class="header__navbar-iteam header__navbar-user" th:classappend="${isLoginFailure} ? '' : auth_none">
+                        <img th:src="${avatar}" alt="" class="header__navbar-user-img">
+                        <span class="header__navbar-user-name" th:text="${name}"></span>
+                        <ul class="header__navbar-user-menu">
+                            <li class="header__navbar-user-item">
                                 <a href="/users/information">tài khoản của tôi</a>
                             </li>
-                            <li class="header__navbar-users-item">
+                            <li class="header__navbar-user-item">
                                 <a href="">địa chỉ của tôi</a>
                             </li>
-                            <li class="header__navbar-users-item">
+                            <li class="header__navbar-user-item">
                                 <a href="">đơn mua</a>
                             </li>
-                            <li class="header__navbar-users-item ngancach">
+                            <li class="header__navbar-user-item ngancach">
                                 <a href="/users/main"> đăng xuất</a>
                             </li>
                         </ul>
@@ -797,20 +797,20 @@
             <form th:action="@{register}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">Đăng Ký</h3>
-                    <span class="auth-form__switch-home-filter__btn btn">Đăng Nhập</span>
+                    <span onclick="dangnhap()" class="auth-form__switch-home-filter__btn btn">Đăng Nhập</span>
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" name="name" placeholder="nhập tên của bạn">
+                        <input type="text" class="auth-form__input" name="name" placeholder="nhập tên của bạn" required="">
                     </div>
                     <div class="auth-form__group">
-                        <input type="text" class="auth-form__input" name="email" placeholder="nhập email của bạn">
+                        <input type="text" class="auth-form__input" name="email" placeholder="nhập email của bạn" required="">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" name="password" placeholder="nhập mật khẩu">
+                        <input type="password" class="auth-form__input" name="password" placeholder="nhập mật khẩu" required="">
                     </div>
                     <div class="auth-form__group">
-                        <input type="password" class="auth-form__input" name="password1" placeholder="nhập lại mật khẩu">
+                        <input type="password" class="auth-form__input" name="password1" placeholder="nhập lại mật khẩu" required="">
                     </div>
                 </div>
 
@@ -823,8 +823,8 @@
                 </div>
 
                 <div class="auth-from__controls">
-                    <button th:onsubmit="" class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">Trở lại</button>
-                    <button class="home-filter__btn btn home-filter__btn btn--primary">ĐĂNG KÝ</button>
+                    <button onclick="cancel()" type="reset" name="trolai" value="trolai" class="home-filter__btn btn auth-from__controls-back home-filter__btn btn--normal">Trở lại</button>
+                    <button type="submit" name="dangky"  class="home-filter__btn btn home-filter__btn btn--primary">ĐĂNG KÝ</button>
                 </div>
             </form>
 
@@ -847,7 +847,7 @@
             <form th:action="@{login}" method="post" class="auth-form__container">
                 <div class="auth-form__header">
                     <h3 class="auth-form__heading">đăng nhập</h3>
-                    <span class="auth-form__switch-home-filter__btn btn">đăng ký</span>
+                    <span onclick="dangky()" class="auth-form__switch-home-filter__btn btn">đăng ký</span>
                 </div>
                 <div class="auth-form__form">
                     <div class="auth-form__group">

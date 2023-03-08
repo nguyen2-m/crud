@@ -72,15 +72,15 @@ public class UserServiceIml implements UserService {
         if(rs != null) {
             throw new InternalServerException("Email is already in system");
         }
-//        User user1 = new User(result.get().getId(), result.get().getName(), result.get().getEmail(), result.get().getPhone(), result.get().getAvatar());
-//
-//        user1.setEmail(req.getEmail());
-//        user1.setName(req.getName());
-//        user1.setPhone(req.getPhone());
-//
-//        user1.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
-//
-//        userRepository.save(user1);
+        Users user1 = new Users();
+
+        user1.setEmail(req.getEmail());
+        user1.setName(req.getName());
+        user1.setPhone(req.getPhone());
+
+        user1.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
+
+        userRepository.save(user1);
         return null;
     }
 

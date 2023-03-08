@@ -23,7 +23,7 @@ import java.util.Optional;
 
 @Controller
 //@SessionAttributes("session")
-@RequestMapping("/user")
+@RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -52,7 +52,7 @@ public class UserController {
 //        System.out.println(data.getBirthday());
 
         if(data != null){
-            model.addAttribute("user",data);
+            model.addAttribute("users",data);
         }
 //        UserDto result = userService.getUserByEmail((String) session.getAttribute("username"));
 //        System.out.println(result);
@@ -95,6 +95,8 @@ public class UserController {
                 file.transferTo(dest);
                 result.setAvatar(filePath);
                 System.out.println(filePath);
+                System.out.println(file);
+                System.out.println(dest);
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -107,7 +109,7 @@ public class UserController {
         userService.updateUser(req, req.getId());
 
 
-        return "redirect:/user/information";
+        return "redirect:/users/information";
     }
 
     @DeleteMapping("/{id}")

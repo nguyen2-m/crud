@@ -19,3 +19,11 @@ function cancel(){
     modelRegister.classList.add("auth_none")
     modelLogin.classList.add("auth_none")
 }
+function dangnhap() {
+    modelRegister.classList.add("auth_none")
+    modelLogin.classList.remove("auth_none")
+}
+function dangky() {
+    modelLogin.classList.add("auth_none")
+    modelRegister.classList.remove("auth_none")
+}

@@ -994,7 +994,7 @@ i.home-product-item__like-icon-fill{
 }
 
 .home-product-item__favourite i{
-    font-size: 0.9;
+    font-size: 0.9px;
     margin: 0 1px 0 5px;
     color: var(--white-color);
 
