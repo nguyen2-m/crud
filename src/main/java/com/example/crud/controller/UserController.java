@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -54,7 +57,7 @@ public class UserController {
     @GetMapping("/information")
     public String information(Model model, HttpSession session) {
 //        UserDto data = (UserDto)session.getAttribute("user");
-        UserDto data = userService.getUserByEmail((String) session.getAttribute("email"));
+        UserDto data = userService.getUserById((int)session.getAttribute("id"));
         System.out.println(data.getName());
 //        System.out.println(data.getBirthday());
 
@@ -80,181 +83,67 @@ public class UserController {
         return login(loginReq,model,session);
     }
 
-    private static String UPLOAD_DIR = System.getProperty("user.home") + "/media/upload";
+    private static String UPLOAD_DIR = System.getProperty("user.home") + "/media/upload"; //tạo đường dẫn foder
     @Autowired
     private HttpServletRequest request;
 
     @PostMapping("/save")
     public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("avatar_file") MultipartFile file) {
-
-            File uploadDir = new File(UPLOAD_DIR);
-
-            if (!uploadDir.exists()) {
-
-                uploadDir.mkdirs();
-
+            File uploadDir = new File(UPLOAD_DIR); //tạo file upploadDir có đường dẫn .../media/upload";
+            if (!uploadDir.exists()) {              //nếu file chưa tồn tại.
+                uploadDir.mkdirs();                 // tạo file đường dẫn tới file
             }
-            String originalFilename = file.getOriginalFilename();
-
-            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);;
-
-            if (originalFilename != null && originalFilename.length() > 0) {
-
+            String originalFilename = file.getOriginalFilename();   // lấy được tên file
+            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);// trả về chỉ số index của dấu . xong + 1 mục đích lấy đuôi file
+            if (originalFilename != null && originalFilename.length() > 0) {    //kiểm tra tên file khác null, và độ dài tên file lớn hơn 0
                 if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("gif") && !extension.equals("svg") && !extension.equals("jpeg")) {
-
+//                  nếu đuôi file ảnh khác những đuôi này thì ngoại lệ,
                     throw new NotFoundException("dgd");
-
                 }
-
                 try {
 
-                    Image img = new Image();
-
-                    img.setName(file.getName());
-
-
-
-                    img.setType(extension);
-
-
-//                    img.setId(Long.valueOf(UUID.randomUUID().toString()));
-
-                    String link = "/media/static/" + "1" + "." + extension;
-
-                    img.setLink(link);
-
+//                    img.setId(Long.valueOf(UUID.randomUUID().toString())); //set ID bị lỗi,không hiểu lắm
+                    String link = "/users/media/static/" + req.getId() + "." + extension; //khởi tạo đường link để gọi tới hàm lấy ảnh
                     // Create file
-
-                    File serverFile = new File(UPLOAD_DIR + "/" + "1" + "." + extension);
-
+                    File serverFile = new File(UPLOAD_DIR + "/" + req.getId() + "." + extension); //tạo đương dẫn file theo id
                     BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+//                  FileOutputStream để ghi dữ liệu dạng byte từ file.BufferedOutputStream giúp ghi dữ liệu  dạngbyte hiệu quả hơn. ->>không hiểu lắm.
+                    stream.write(file.getBytes()); //chuyển về dạng byte
 
-                    stream.write(file.getBytes());
-
-                    stream.close();
-                    UserDto result = new UserDto();
-                    result.setAvatar(link);
-
-                    req.setAvatar(result.getAvatar());
-
-                    userService.updateUser(req, req.getId());
-
-//                    imageService.save(img);
-
-//                    return ResponseEntity.ok(link);
-
+                    stream.close(); //đóng
+                    req.setAvatar(link); //set link
+                    userService.updateUser(req, req.getId()); //update vào database
                 } catch (Exception e) {
-
                     throw new InternalServerException("Lỗi khi upload file");
-
                 }
-
             }
+//            throw new NotFoundException("File không hợp lệ");
+            return "redirect:/users/information";
+    }
 
-            throw new NotFoundException("File không hợp lệ");
-
-
-//        System.out.println(req.getName());
-//        System.out.println(req.getBirthday());
-//        UserDto result = new UserDto();
-//        if (!file.isEmpty()) {
-//            try {
-////                String uploadsDir = "/uploads/";
-//                String toUploads = System.getProperty("user.home") + "/media/upload";
-////                        request.getServletContext().getRealPath(uploadsDir);
-//                if (!new File(toUploads).exists()) {
-//                    new File(toUploads).mkdirs();
-//                }
-//
-//                String originalFilename = file.getOriginalFilename();
-//
-//                String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);;
-//
-////                log.info("toUploads = {}", toUploads);
-//                System.out.println(toUploads);
-//
-//                String orgName = file.getOriginalFilename();
-//                String filePath = toUploads + orgName;
-//                String link = "/media/static/" + "1" + "." + extension;
-//                File dest = new File(filePath);
-//                File serverFile = new File(toUploads + "/" + "1"+ "." + extension);
-//                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-//                stream.write(file.getBytes());
-//                stream.close();
-//                file.transferTo(dest);
-//                result.setAvatar(link);
-//                System.out.println(filePath);
-//                System.out.println(link);
-//                System.out.println(serverFile);
-//
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            } finally {
-//
-//            }
-//        }
-//        result.setAvatar(link);
-//        req.setAvatar(result.getAvatar());
-//
-//        userService.updateUser(req, req.getId());
-
+    @GetMapping("/media/static/{filename}")
+    public ResponseEntity<?> download(@PathVariable String filename) {  //lấy ra tên file.
+        File file = new File(UPLOAD_DIR + "/" + filename);      //lấy ra đường dẫn
+        if (!file.exists()) {         //nếu không tồn tại==> ngoại lệ
+            throw new NotFoundException("File không tồn tại");
+        }
+        UrlResource resource; //khai báo biến để lưu URL
+        try {
+            resource = new UrlResource(file.toURI()); //lưu URL
+        } catch (MalformedURLException e) {
+            throw new NotFoundException("File không tồn tại");
+        }
+        return ResponseEntity.ok()  //trả về ok với đường link ảnh.
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .body(resource);
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable int id) {
-        userService.deleteUser(id);
-        return ResponseEntity.ok("Delete success");
-    }
-
-
-
-    @PostMapping("/profile")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws Exception {
-//        ImageUploadResponse response = imageDataService.uploadImage(file);
-//        if (!file.isEmpty()) {
-//            try {
-//                String uploadsDir = "/uploads/";
-//                String toUploads = request.getServletContext().getRealPath(uploadsDir);
-//                if (!new File(toUploads).exists()) {
-//                    new File(toUploads).mkdir();
-//                }
-//
-////                log.info("toUploads = {}", toUploads);
-//                System.out.println(toUploads);
-//
-//                String orgName = file.getOriginalFilename();
-//                String filePath = toUploads + orgName;
-//                File dest = new File(filePath);
-//                file.transferTo(dest);
-//                System.out.println(filePath);
-//                return ResponseEntity.ok("Upload success");
-//            } finally {
-//
-//            }
-//        }
-        return null;
-    }
-
-
-    @GetMapping("/main/login")
-    public String mainLogin(@ModelAttribute LoginReq loginReq, Model model){
-        model.addAttribute("isLoginFailure", false);
-        model.addAttribute("isLoginFailure1", true);
-        return "index";
-
-    }
-    @GetMapping("/date")
-    public String date(Model model){
-        model.addAttribute("date", new Date());
-        return "date";
-    }
     @GetMapping("/main")
     public String index(){
         return "index";
 
     }
-
 
     @PostMapping("/login")
     public String login(@ModelAttribute LoginReq user, Model model,HttpSession session) {
@@ -266,24 +155,20 @@ public class UserController {
 //        User userSession = result.get();
 
         if(result==null){
-
-            return mainLogin(user, model);
-
+            model.addAttribute("isLoginFailure", false);
+            model.addAttribute("isLoginFailure1", true);
+//            return index();
         }else{
-//            UserDto userSession = new UserDto(result.get().getId(), result.get().getName(), result.get().getEmail(), result.get().getPhone(), result.get().getAvatar(),result.get().getBirthday());
-//            session.removeAttribute("user");
-//            session.setAttribute("user", userSession);
-//            UserDto data = (UserDto)session.getAttribute("user");
-//            System.out.println("mode1111");
-            session.setAttribute("email",result.get().getEmail());
+//
+            session.setAttribute("id",result.get().getId());
             model.addAttribute("isLoginFailure", true);
             model.addAttribute("isLoginFailure1", false);
             model.addAttribute("name",result.get().getName());
             model.addAttribute("avatar",result.get().getAvatar());
-
+            System.out.println(result.get().getId());
             System.out.println(result.get().getAvatar());
-            return "index";
         }
+        return "index";
     }
 
 }

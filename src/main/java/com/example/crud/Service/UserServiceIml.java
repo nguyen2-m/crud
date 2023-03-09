@@ -170,6 +170,19 @@ public class UserServiceIml implements UserService {
 
     }
 
+    @Override
+    public UserDto getUserById(int id) {
+        Optional<Users> user = userRepository.findById(id);
+        if(user.isEmpty()){
+            throw new NotFoundException("User khong ton tai trong he thong");
+//            if(user.getId()==id){
+//                return UserMapper.toUserDto(user);
+//            }
+        }
+//        throw new NotFoundException("User khong ton tai trong he thong");
+        return UserMapper.toUserDto(user.get());
+    }
+
 }
 
 

@@ -18,5 +18,7 @@ public interface UserService {
     public void deleteUser(int id);
     public Optional<Users> check(String email, String password);
 
+    public UserDto getUserById(int id);
+
 
 }
