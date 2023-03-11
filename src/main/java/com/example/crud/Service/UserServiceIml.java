@@ -183,6 +183,24 @@ public class UserServiceIml implements UserService {
         return UserMapper.toUserDto(user.get());
     }
 
+    @Override
+    public UserDto updateImageUser(UserDto req, int id) {
+        Optional<Users> resultImage = userRepository.findById(id);
+        if(resultImage.isEmpty()){
+            throw new NotFoundException("User khong ton tai trong he thong");
+
+        }
+        Users users = resultImage.get();
+        users.setAvatar(req.getAvatar());
+
+        try {
+            userRepository.save(users);
+        }catch (Exception ex){
+            throw new InternalServerException("Database error. Can't update user");
+        }
+        return UserMapper.toUserDto(users);
+    }
+
 }
 
 

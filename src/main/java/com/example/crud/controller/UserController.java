@@ -87,38 +87,73 @@ public class UserController {
     @Autowired
     private HttpServletRequest request;
 
-    @PostMapping("/save")
-    public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("avatar_file") MultipartFile file) {
-            File uploadDir = new File(UPLOAD_DIR); //tạo file upploadDir có đường dẫn .../media/upload";
-            if (!uploadDir.exists()) {              //nếu file chưa tồn tại.
-                uploadDir.mkdirs();                 // tạo file đường dẫn tới file
-            }
-            String originalFilename = file.getOriginalFilename();   // lấy được tên file
-            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);// trả về chỉ số index của dấu . xong + 1 mục đích lấy đuôi file
-            if (originalFilename != null && originalFilename.length() > 0) {    //kiểm tra tên file khác null, và độ dài tên file lớn hơn 0
-                if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("gif") && !extension.equals("svg") && !extension.equals("jpeg")) {
+//    @PostMapping("/save")
+//    public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("avatar_file") MultipartFile file) {
+//            File uploadDir = new File(UPLOAD_DIR); //tạo file upploadDir có đường dẫn .../media/upload";
+//            if (!uploadDir.exists()) {              //nếu file chưa tồn tại.
+//                uploadDir.mkdirs();                 // tạo file đường dẫn tới file
+//            }
+//            String originalFilename = file.getOriginalFilename();   // lấy được tên file
+//            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);// trả về chỉ số index của dấu . xong + 1 mục đích lấy đuôi file
+//            if (originalFilename != null && originalFilename.length() > 0) {    //kiểm tra tên file khác null, và độ dài tên file lớn hơn 0
+//                if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("gif") && !extension.equals("svg") && !extension.equals("jpeg")) {
+////                  nếu đuôi file ảnh khác những đuôi này thì ngoại lệ,
+//                    throw new NotFoundException("dgd");
+//                }
+//                try {
+//
+////                    img.setId(Long.valueOf(UUID.randomUUID().toString())); //set ID bị lỗi,không hiểu lắm
+//                    String link = "/users/media/static/" + req.getId() + "." + extension; //khởi tạo đường link để gọi tới hàm lấy ảnh
+//                    // Create file
+//                    File serverFile = new File(UPLOAD_DIR + "/" + req.getId() + "." + extension); //tạo đương dẫn file theo id
+//                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+////                  FileOutputStream để ghi dữ liệu dạng byte từ file.BufferedOutputStream giúp ghi dữ liệu  dạngbyte hiệu quả hơn. ->>không hiểu lắm.
+//                    stream.write(file.getBytes()); //chuyển về dạng byte
+//
+//                    stream.close(); //đóng
+//                    req.setAvatar(link); //set link
+//                    userService.updateUser(req, req.getId()); //update vào database
+//                } catch (Exception e) {
+//                    throw new InternalServerException("Lỗi khi upload file");
+//                }
+//            }
+////            throw new NotFoundException("File không hợp lệ");
+//            return "redirect:/users/information";
+//    }
+
+    @PostMapping("/saveimage")
+    public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("inpFile") MultipartFile file, HttpSession session) {
+        File uploadDir = new File(UPLOAD_DIR); //tạo file upploadDir có đường dẫn .../media/upload";
+        if (!uploadDir.exists()) {              //nếu file chưa tồn tại.
+            uploadDir.mkdirs();                 // tạo file đường dẫn tới file
+        }
+        String originalFilename = file.getOriginalFilename();   // lấy được tên file
+        String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);// trả về chỉ số index của dấu . xong + 1 mục đích lấy đuôi file
+        if (originalFilename != null && originalFilename.length() > 0) {    //kiểm tra tên file khác null, và độ dài tên file lớn hơn 0
+            if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("gif") && !extension.equals("svg") && !extension.equals("jpeg")) {
 //                  nếu đuôi file ảnh khác những đuôi này thì ngoại lệ,
-                    throw new NotFoundException("dgd");
-                }
-                try {
+                throw new NotFoundException("dgd");
+            }
+            try {
 
 //                    img.setId(Long.valueOf(UUID.randomUUID().toString())); //set ID bị lỗi,không hiểu lắm
-                    String link = "/users/media/static/" + req.getId() + "." + extension; //khởi tạo đường link để gọi tới hàm lấy ảnh
-                    // Create file
-                    File serverFile = new File(UPLOAD_DIR + "/" + req.getId() + "." + extension); //tạo đương dẫn file theo id
-                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                String link = "/users/media/static/" + req.getId() + "." + extension; //khởi tạo đường link để gọi tới hàm lấy ảnh
+                // Create file
+                File serverFile = new File(UPLOAD_DIR + "/" + req.getId() + "." + extension); //tạo đương dẫn file theo id
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 //                  FileOutputStream để ghi dữ liệu dạng byte từ file.BufferedOutputStream giúp ghi dữ liệu  dạngbyte hiệu quả hơn. ->>không hiểu lắm.
-                    stream.write(file.getBytes()); //chuyển về dạng byte
+                stream.write(file.getBytes()); //chuyển về dạng byte
 
-                    stream.close(); //đóng
-                    req.setAvatar(link); //set link
-                    userService.updateUser(req, req.getId()); //update vào database
-                } catch (Exception e) {
-                    throw new InternalServerException("Lỗi khi upload file");
-                }
+                stream.close(); //đóng
+                req.setAvatar(link); //set link
+                System.out.println(session.getAttribute("id"));
+                userService.updateImageUser(req, (int)session.getAttribute("id")); //update vào database
+            } catch (Exception e) {
+                throw new InternalServerException("Lỗi khi upload file");
             }
+        }
 //            throw new NotFoundException("File không hợp lệ");
-            return "redirect:/users/information";
+        return "redirect:/users/information";
     }
 
     @GetMapping("/media/static/{filename}")

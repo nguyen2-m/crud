@@ -19,6 +19,7 @@ public interface UserService {
     public Optional<Users> check(String email, String password);
 
     public UserDto getUserById(int id);
+    public UserDto updateImageUser(UserDto req, int id);
 
 
 }

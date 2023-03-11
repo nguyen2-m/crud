@@ -22,6 +22,8 @@ public class UserDto  implements Serializable {
     private String phone;
 
     private String avatar;
+
+    private String address;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
