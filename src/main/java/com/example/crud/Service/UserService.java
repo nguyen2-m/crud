@@ -17,7 +17,7 @@ public interface UserService {
     public UserDto updateUser(UserDto req, int id);
     public void deleteUser(int id);
     public Optional<Users> check(String email, String password);
-
+    public Optional<Users> getUserBySession(int id);
     public UserDto getUserById(int id);
     public UserDto updateImageUser(UserDto req, int id);
 

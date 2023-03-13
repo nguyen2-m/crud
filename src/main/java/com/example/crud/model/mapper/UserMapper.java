@@ -12,6 +12,7 @@ public class UserMapper {
         tmp.setPhone(users.getPhone());
         tmp.setAvatar(users.getAvatar());
         tmp.setBirthday(users.getBirthday());
+        tmp.setAddress(users.getAddress());
 
         return tmp;
     }

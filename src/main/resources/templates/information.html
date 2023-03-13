@@ -16,7 +16,10 @@
         <div class="grid">
             <div class="header-grid">
                 <div>
-                    <button class="btn-home">home</button>
+
+                    <form th:action="@{home}" method="post">
+                        <button type="submit" class="btn-home">home</button>
+                    </form>
                 </div>
                 <div class="header-image"
                      th:style="'background-image:url(' + ${users.getAvatar()} + ');'">
@@ -71,9 +74,6 @@
                                         tin</button>
                                 </div>
                             </div>
-
-
-
                         </div>
                     </div>
 
@@ -89,7 +89,7 @@
     <div onclick="backcancel()" class="modal__overlay"></div>
     <div class="modal__boby">
         <div class="auth-form">
-            <form action="action" id="saveform" class="auth-form__container">
+            <form th:action="@{save}" method="post" id="saveform" class="auth-form__container">
                 <div class="auth-form__form">
                     <div class="auth-form__group">
                         <input th:value="${users.name}" type="text" class="auth-form__input" name="name" placeholder="nhap name cua ban">

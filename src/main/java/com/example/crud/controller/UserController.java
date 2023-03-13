@@ -32,7 +32,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Controller
-//@SessionAttributes("session")
 @RequestMapping("/users")
 public class UserController {
     @Autowired
@@ -83,44 +82,20 @@ public class UserController {
         return login(loginReq,model,session);
     }
 
+
+
+    @PostMapping("/save")
+    public String updateUser(@Valid @ModelAttribute UserDto req, HttpSession session) {
+        userService.updateUser(req, (int)session.getAttribute("id")); //update vào database
+
+//            throw new NotFoundException("File không hợp lệ");
+        return "redirect:/users/information";
+    }
+
+
     private static String UPLOAD_DIR = System.getProperty("user.home") + "/media/upload"; //tạo đường dẫn foder
     @Autowired
     private HttpServletRequest request;
-
-//    @PostMapping("/save")
-//    public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("avatar_file") MultipartFile file) {
-//            File uploadDir = new File(UPLOAD_DIR); //tạo file upploadDir có đường dẫn .../media/upload";
-//            if (!uploadDir.exists()) {              //nếu file chưa tồn tại.
-//                uploadDir.mkdirs();                 // tạo file đường dẫn tới file
-//            }
-//            String originalFilename = file.getOriginalFilename();   // lấy được tên file
-//            String extension = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);// trả về chỉ số index của dấu . xong + 1 mục đích lấy đuôi file
-//            if (originalFilename != null && originalFilename.length() > 0) {    //kiểm tra tên file khác null, và độ dài tên file lớn hơn 0
-//                if (!extension.equals("png") && !extension.equals("jpg") && !extension.equals("gif") && !extension.equals("svg") && !extension.equals("jpeg")) {
-////                  nếu đuôi file ảnh khác những đuôi này thì ngoại lệ,
-//                    throw new NotFoundException("dgd");
-//                }
-//                try {
-//
-////                    img.setId(Long.valueOf(UUID.randomUUID().toString())); //set ID bị lỗi,không hiểu lắm
-//                    String link = "/users/media/static/" + req.getId() + "." + extension; //khởi tạo đường link để gọi tới hàm lấy ảnh
-//                    // Create file
-//                    File serverFile = new File(UPLOAD_DIR + "/" + req.getId() + "." + extension); //tạo đương dẫn file theo id
-//                    BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-////                  FileOutputStream để ghi dữ liệu dạng byte từ file.BufferedOutputStream giúp ghi dữ liệu  dạngbyte hiệu quả hơn. ->>không hiểu lắm.
-//                    stream.write(file.getBytes()); //chuyển về dạng byte
-//
-//                    stream.close(); //đóng
-//                    req.setAvatar(link); //set link
-//                    userService.updateUser(req, req.getId()); //update vào database
-//                } catch (Exception e) {
-//                    throw new InternalServerException("Lỗi khi upload file");
-//                }
-//            }
-////            throw new NotFoundException("File không hợp lệ");
-//            return "redirect:/users/information";
-//    }
-
     @PostMapping("/saveimage")
     public String updateUser(@Valid @ModelAttribute UserDto req, @RequestParam("inpFile") MultipartFile file, HttpSession session) {
         File uploadDir = new File(UPLOAD_DIR); //tạo file upploadDir có đường dẫn .../media/upload";
@@ -180,13 +155,22 @@ public class UserController {
 
     }
 
-    @PostMapping("/login")
+    @PostMapping("/home")
     public String login(@ModelAttribute LoginReq user, Model model,HttpSession session) {
+        Optional<Users> result = null;
 
-        String email = user.getEmail();
-        String password = user.getPassword();
+        if(user.getEmail()!=null&&user.getPassword()!=null) {
+            String email = user.getEmail();
+            String password = user.getPassword();
+            result = userService.check(email, password);
+            if(result!=null) {
+                session.setAttribute("id", result.get().getId());
+            }
+        }else if(session.getAttribute("id")!=null) {
 
-        Optional<Users> result = userService.check(email,password);
+            result = userService.getUserBySession((int)session.getAttribute("id"));
+
+        }
 //        User userSession = result.get();
 
         if(result==null){
@@ -195,7 +179,6 @@ public class UserController {
 //            return index();
         }else{
 //
-            session.setAttribute("id",result.get().getId());
             model.addAttribute("isLoginFailure", true);
             model.addAttribute("isLoginFailure1", false);
             model.addAttribute("name",result.get().getName());

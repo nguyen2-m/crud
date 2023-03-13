@@ -91,17 +91,14 @@ public class UserServiceIml implements UserService {
             throw new NotFoundException("User khong ton tai trong he thong");
 
         }
-        Users rs = userRepository.findByEmail(req.getEmail());
-//        if(rs != null) {
-//            throw new InternalServerException("Email is already in system");
-//        }
+
         Users users = result.get();
         users.setEmail(req.getEmail());
         users.setBirthday(req.getBirthday());
         users.setName(req.getName());
         users.setPhone(req.getPhone());
-//        user.setPassword(BCrypt.hashpw(req.getPassword(), BCrypt.gensalt(12)));
-        users.setAvatar(req.getAvatar());
+
+        users.setAddress(req.getAddress());
 
         try {
             userRepository.save(users);
@@ -168,6 +165,19 @@ public class UserServiceIml implements UserService {
         Users users = userRepository.findByEmail(email);
         return users !=null && BCrypt.checkpw(password, users.getPassword()) ? Optional.of(users) : null;
 
+    }
+
+    @Override
+    public Optional<Users> getUserBySession(int id) {
+        Optional<Users> user = userRepository.findById(id);
+        if(user.isEmpty()){
+            throw new NotFoundException("User khong ton tai trong he thong");
+//            if(user.getId()==id){
+//                return UserMapper.toUserDto(user);
+//            }
+        }
+//        throw new NotFoundException("User khong ton tai trong he thong");
+        return user ;
     }
 
     @Override
